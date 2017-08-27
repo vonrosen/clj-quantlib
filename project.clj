@@ -4,4 +4,4 @@
   :license {:name "3-Clause BSD License"
             :url "https://opensource.org/licenses/BSD-3-Clause"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.vonrosen/quantlib "1.10"]])
+                 [com.github.vonrosen/quantlib "1.10"]])
