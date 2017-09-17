@@ -28,10 +28,10 @@
   (date-adjusted [this])
   (date-add [period]))
 
-(defrecord date-1 [date month year]
+(defrecord date-1 [day-of-month month year]
   IDate  
   (to-java [this]
-    (new Date date (month keywords-to-months) year))
+    (new Date day-of-month (month keywords-to-months) year))
   (from-java [date-java]
     (let [d (.dayOfMonth date-java)
           m (.month date-java)
