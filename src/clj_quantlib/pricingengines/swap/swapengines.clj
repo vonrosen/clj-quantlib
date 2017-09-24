@@ -1,11 +1,38 @@
-(ns clj-quantlib.pricingengines.swap.swapengines)
+(ns clj-quantlib.pricingengines.swap.swapengines
+  (:import (com.github.vonrosen.quantlib RelinkableYieldTermStructureHandle)))
 
-(defrecord discounting-swap-engine-1 [discount-curve settlement-date npv-date])
-(defrecord discounting-swap-engine-2 [discount-curve settlement-date])
-(defrecord discounting-swap-engine-3 [discount-curve])
-(defrecord discounting-swap-engine-4 [discount-curve include-settlement-date-flows settlement-date npv-date])
-(defrecord discounting-swap-engine-5 [discount-curve include-settlement-date-flows settlement-date])
-(defrecord discounting-swap-engine-6 [discount-curve include-settlement-date-flows])
+(defprotocol Engine
+  (to-java [this]))
+
+(defrecord discounting-swap-engine-1 [discount-curve settlement-date npv-date]
+  Engine
+  (to-java [this]
+    #_todo))
+(defrecord discounting-swap-engine-2 [discount-curve settlement-date]
+  Engine
+  (to-java [this]
+    #_todo))
+(defrecord discounting-swap-engine-3 [discount-curve]
+  Engine
+  (to-java [this]
+    (new DiscountingSwapEngine
+         (doto (RelinkableYieldTermStructureHandle.) (.linkTo ))     
+         
+         
+         
+         )))
+(defrecord discounting-swap-engine-4 [discount-curve include-settlement-date-flows settlement-date npv-date]
+  Engine
+  (to-java [this]
+    #_todo))
+(defrecord discounting-swap-engine-5 [discount-curve include-settlement-date-flows settlement-date]
+  Engine
+  (to-java [this]
+    #_todo))
+(defrecord discounting-swap-engine-6 [discount-curve include-settlement-date-flows]
+  Engine
+  (to-java [this]
+    #_todo))
 
 (defn discounting-swap-engine
   ([discount-curve settlement-date npv-date]

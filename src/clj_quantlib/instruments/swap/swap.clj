@@ -8,29 +8,38 @@
   {:payer (_VanillaSwap.Type/Payer)
    :receiver (_VanillaSwap.Type/Receiver)})
 
-VanillaSwap spot5YearSwap = new VanillaSwap(
-				swapType,
-				nominal,
-				fixedSchedule,
-				fixedRate,
-				fixedLegDayCounter,
-				floatSchedule,
-				euriborIndex,
-				spread,
-				floatingLegDayCounter);
-
-(defrecord vanilla-swap-1 [type nominal fixed-schedule fixed-rate fixed-day-count float-schedule ibor-index spread floating-day-count pricing-engine]
+(defrecord vanilla-swap-1 [type nominal fixed-schedule fixed-rate fixed-day-count 
+                           float-schedule ibor-index spread floating-day-count pricing-engine]
   IInstrument
   (to-java [this]
     (new VanillaSwap (type keywords-to-vanilla-swap-types)
          nominal
          (to-java fixed-schedule)
-         
-         
-         )  
+         fixed-rate
+         fixed-day-count
+         (to-java float-schedule)
+         ibor-index
+         spread
+         floating-day-count
+         pricing-engine))
+  (npv [this]
     
-    ))
+    
+    
+    )
+  )
 
 (defn vanilla-swap
-  [type nominal fixed-schedule fixed-rate fixed-day-count float-schedule ibor-index spread floating-day-count pricing-engine]
-  (->vanilla-swap-1 (keyword type) nominal fixed-schedule fixed-rate fixed-day-count float-schedule ibor-index spread floating-day-count pricing-engine))
+  [type nominal fixed-schedule fixed-rate fixed-day-count float-schedule 
+   ibor-index spread floating-day-count pricing-engine]
+  (->vanilla-swap-1 
+    (keyword type) 
+    nominal 
+    fixed-schedule 
+    fixed-rate 
+    fixed-day-count 
+    float-schedule 
+    ibor-index 
+    spread 
+    floating-day-count 
+    pricing-engine))
