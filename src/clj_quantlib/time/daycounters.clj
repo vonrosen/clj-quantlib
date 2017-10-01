@@ -10,53 +10,60 @@
 
 (def ^{:doc "Map of keywords into native java no-arg constructor DayCounter objects."}
      keyword-to-daycounters
-  {:actual360 (new Actual360)
-   :actual365fixed (new Actual365Fixed)
-   :actual365noleap (new Actual365NoLeap)
-   :actualactual (new ActualActual)
-   :business252 (new Business252)
-   :onedaycounter (new OneDayCounter)
-   :simpledaycounter (new SimpleDayCounter)
-   :thirty360 (new Thirty360)})
+  {:actual360 '(new Actual360)
+   :actual365fixed '(new Actual365Fixed)
+   :actual365noleap '(new Actual365NoLeap)
+   :actualactual '(new ActualActual)
+   :business252 '(new Business252)
+   :onedaycounter '(new OneDayCounter)
+   :simpledaycounter '(new SimpleDayCounter)
+   :thirty360 '(new Thirty360)})
 
-(def ^{:doc "Map of keywords into native java ActualActual Conventions."}
-     keyword-to-daycounters-with-convention
-  {:isma (ActualActual/ISMA)
-   :bond (ActualActual/Bond)
-   :isda (ActualActual/ISDA)
-   :historical (ActualActual/Historical)
-   :actual365 (ActualActual/Actual365)
-   :afb (ActualActual/AFB)
-   :euro (ActualActual/Euro)})
+(def ^{:doc "Map of keywords into native java DayCounter Conventions."}
+     keyword-to-conventions
+  {:isma '(ActualActual/ISMA)
+   :bond '(ActualActual/Bond)
+   :isda '(ActualActual/ISDA)
+   :historical '(ActualActual/Historical)
+   :actual365 '(ActualActual/Actual365)
+   :afb '(ActualActual/AFB)
+   :euro '(ActualActual/Euro)
+   :usa '(Thirty360/USA)
+   :bondbasis '(Thirty360/BondBasis)
+   :european '(Thirty360/European)
+   :eurobondbasis '(Thirty360/EurobondBasis)
+   :italian '(Thirty360/Italian)})
 
-(->> (ActualActual/Euro)
-  (new ActualActual))
-
-(def ^{:doc "Map of keywords into native java DayCounter objects with Conventions."}
-     keyword-to-daycounters-with-convention
-  {:actualactual  
-   :business252 (TimeUnit/Hours)
-   :onedaycounter  (TimeUnit/Minutes)
-   :simpledaycounter (TimeUnit/Seconds)
-   :thirty360 (TimeUnit/Milliseconds)})
+(defn new-java-daycounter
+  ([type]
+    (eval (type keyword-to-daycounters)))
+  ([type convention]
+    (eval 
+      (apply list (conj 
+                    (vec (type keyword-to-daycounters)) 
+                    (convention keyword-to-conventions)))))
+  ([type convention schedule]
+    (eval 
+      (apply list (conj 
+                    (vec (type keyword-to-daycounters)) 
+                    (convention keyword-to-conventions)
+                    '(to-java schedule))))))
 
 (defprotocol DayCounter
-  (to-java [this]))
+ (to-java [this]))
 
 (defrecord daycounter-1 [type]
   DayCounter
   (to-java [this]
-    (type keyword-to-daycounters)))
+    (new-daycounter type)))
 (defrecord daycounter-2 [type convention]
   DayCounter
   (to-java [this]
-    (->> (convention keyword-to-daycounters-with-convention))
-     (type keyword-to-daycounters) ))
+    (new-daycounter type convention)))
 (defrecord daycounter-3 [type convention schedule]
   DayCounter
   (to-java [this]
-    #_todo))
-
+    (new-daycounter type convention schedule)))
 (defn daycounter 
   ([type]
     (->daycounter-1 (keyword type)))

@@ -16,11 +16,7 @@
   Engine
   (to-java [this]
     (new DiscountingSwapEngine
-         (doto (RelinkableYieldTermStructureHandle.) (.linkTo ))     
-         
-         
-         
-         )))
+         (doto (RelinkableYieldTermStructureHandle.) (.linkTo (to-java discount-curve))))))
 (defrecord discounting-swap-engine-4 [discount-curve include-settlement-date-flows settlement-date npv-date]
   Engine
   (to-java [this]

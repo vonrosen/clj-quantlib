@@ -12,22 +12,19 @@
                            float-schedule ibor-index spread floating-day-count pricing-engine]
   IInstrument
   (to-java [this]
-    (new VanillaSwap (type keywords-to-vanilla-swap-types)
+    (new VanillaSwap 
+         (type keywords-to-vanilla-swap-types)
          nominal
          (to-java fixed-schedule)
          fixed-rate
-         fixed-day-count
+         (to-java fixed-day-count)
          (to-java float-schedule)
-         ibor-index
+         (to-java ibor-index)
          spread
-         floating-day-count
-         pricing-engine))
+         (to-java floating-day-count)
+         (to-java pricing-engine)))
   (npv [this]
-    
-    
-    
-    )
-  )
+    (.NPV (to-java this))))
 
 (defn vanilla-swap
   [type nominal fixed-schedule fixed-rate fixed-day-count float-schedule 

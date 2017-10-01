@@ -11,8 +11,8 @@
     (new PiecewiseFlatForward
          (to-java settlement-date)
          (doto (RateHelperVector.) (dotimes [instrument instruments] (.add (to-java instruments))))
-         day-counter)))
+         (to-java day-counter))))
 
-(defn piecewiseflatforward 
+(defn piecewise-flat-forward 
   ([settlement-date instruments day-counter]
     (->piecewiseflatforward-1 settlement-date instruments day-counter)))
