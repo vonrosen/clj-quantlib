@@ -1,6 +1,7 @@
 (ns clj-quantlib.time.schedule
-  (:require [clj-quantlib.time.businessdayconvention :refer [keywords-to-businessdayconvention]
-             clj-quantlib.time.dategenerationrule :refer [keywords-to-dategenerationrule]])
+  (:require 
+    [clj-quantlib.time.businessdayconvention :refer [keywords-to-businessdayconvention]]
+    [clj-quantlib.time.dategenerationrule :refer [keywords-to-dategenerationrule]])
   (:import (com.github.vonrosen.quantlib Schedule)))
 
 (defprotocol ISchedule
@@ -27,9 +28,10 @@
                        termination-date-convention date-generation-rule end-of-month]
   ISchedule
   (to-java [this]
-    (new Schedule effective-date 
-         termination-date 
-         (to-java (period tenor))
+    (new Schedule 
+         (to-java effective-date) 
+         (to-java termination-date) 
+         (to-java tenor)
          (business-day-convention keywords-to-businessdayconvention)
          (termination-date-convention keywords-to-businessdayconvention)
          (date-generation-rule keywords-to-dategenerationrule)

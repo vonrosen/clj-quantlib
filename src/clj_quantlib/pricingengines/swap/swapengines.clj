@@ -1,5 +1,6 @@
 (ns clj-quantlib.pricingengines.swap.swapengines
-  (:import (com.github.vonrosen.quantlib RelinkableYieldTermStructureHandle)))
+  (:import (com.github.vonrosen.quantlib RelinkableYieldTermStructureHandle
+                                         DiscountingSwapEngine)))
 
 (defprotocol Engine
   (to-java [this]))

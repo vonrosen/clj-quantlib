@@ -55,16 +55,16 @@
 (defrecord daycounter-1 [type]
   DayCounter
   (to-java [this]
-    (new-daycounter type)))
+    (new-java-daycounter type)))
 (defrecord daycounter-2 [type convention]
   DayCounter
   (to-java [this]
-    (new-daycounter type convention)))
+    (new-java-daycounter type convention)))
 (defrecord daycounter-3 [type convention schedule]
   DayCounter
   (to-java [this]
-    (new-daycounter type convention schedule)))
-(defn daycounter 
+    (new-java-daycounter type convention schedule)))
+(defn day-counter 
   ([type]
     (->daycounter-1 (keyword type)))
   ([type convention]

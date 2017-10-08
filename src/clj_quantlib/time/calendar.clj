@@ -5,18 +5,18 @@
 
 (def ^{:doc "Map of month keywords into native java Month objects."}
      keywords-to-months
-  {:january (Month.January)
-   :february (Month.February)
-   :march (Month.March)
-   :april (Month.April)
-   :may (Month.May)
-   :june (Month.June)
-   :july (Month.July)
-   :august (Month.August)
-   :september (Month.September)
-   :october (Month.October)
-   :november (Month.November)
-   :december (Month.December)})
+  {:january (Month/January)
+   :february (Month/February)
+   :march (Month/March)
+   :april (Month/April)
+   :may (Month/May)
+   :june (Month/June)
+   :july (Month/July)
+   :august (Month/August)
+   :september (Month/September)
+   :october (Month/October)
+   :november (Month/November)
+   :december (Month/December)})
 
 (def ^{:doc "Map of native java Month objects into java keywords."}
      months-to-keywords
@@ -42,7 +42,7 @@
                                (new TARGET)
                                (.adjust (to-java this)))]
     (from-java date-adjusted-java)))
-  (date-add [period]
+  (date-add [this period]
     (let [date-java-added-to (.add (to-java this) (to-java period))]
        (from-java date-java-added-to))))
 

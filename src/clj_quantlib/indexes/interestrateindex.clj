@@ -1,6 +1,6 @@
 (ns clj-quantlib.indexes.interestrateindex
-  (:require [clj-quantlib.time.period :refer [period]
-             clj-quantlib.indexes.index :refer [Index]])
+  (:require [clj-quantlib.time.period :refer [period]]
+            [clj-quantlib.indexes.index :refer [Index]])
   (:import (com.github.vonrosen.quantlib Euribor10M
                                          Euribor11M
                                          Euribor1M
@@ -14,7 +14,8 @@
                                          Euribor6M
                                          Euribor7M
                                          Euribor8M
-                                         Euribor9M)))
+                                         Euribor9M
+                                         YieldTermStructureHandle)))
 
 (def ^{:doc "Map of periods into native java Euribor objects of the
 corresponding time period."}

@@ -1,5 +1,5 @@
-(ns clj-quantlib.instuments.swap
-  (:require clj-quantlib.instruments :refer [IInstrument])
+(ns clj-quantlib.instuments.swap.vanillaswap
+  (:require [clj-quantlib.instruments.instrument :refer [IInstrument]])
   (:import (com.github.vonrosen.quantlib VanillaSwap
                                          _VanillaSwap.Type)))
 

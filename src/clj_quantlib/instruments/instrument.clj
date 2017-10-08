@@ -1,4 +1,4 @@
-(ns clj-quantlib.instruments)
+(ns clj-quantlib.instruments.instrument)
 
 (defprotocol IInstrument
   (to-java [this])

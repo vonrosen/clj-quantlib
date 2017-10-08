@@ -1,22 +1,13 @@
 (ns clj-quantlib.termstructures.yield.ratehelpers
-  (:require clj-quantlib.time.businessdayconvention :refer [keywords-to-businessdayconvention])
-  (:import (com.github.vonrosen.quantlib DepositRateHelper)))
+  (:require [clj-quantlib.time.businessdayconvention :refer 
+             [keywords-to-businessdayconvention]]
+            [clj-quantlib.time.period :refer [keywords-to-frequency]])
+  (:import (com.github.vonrosen.quantlib DepositRateHelper
+                                         SwapRateHelper
+                                         TARGET)))
 
 (defprotocol RateHelper
   (to-java [this]))
-
-
-(deposit-rate-helper 
-                           0.0382 
-                           (period :weeks 1) 
-                           fixing-days 
-                           :modifiedfollowing 
-                           true 
-                           (day-counter :actual360))
-
-public DepositRateHelper(double rate, Period tenor, long fixingDays, Calendar calendar, BusinessDayConvention convention, boolean endOfMonth, DayCounter dayCounter) {
-
-
 
 (defrecord deposit-rate-helper-1 [rate period fixing-days convention end-of-month day-counter]
   RateHelper
@@ -27,17 +18,13 @@ public DepositRateHelper(double rate, Period tenor, long fixingDays, Calendar ca
          fixing-days
          (convention keywords-to-businessdayconvention)
          end-of-month
-         (to-java day-counter)
-         
-         
-         
-         )))
+         (to-java day-counter))))
 (defrecord deposit-rate-helper-2 [rate, ibor-index]
   RateHelper
   (to-java [this]
     #_todo))
-(defrecord fra-rate-helper-1 [rate months-to-start months-to-end fixing-days convention end-of-month day-counter])
-(defrecord fra-rate-helper-2 [rate months-to-start ibor-index])
+;;(defrecord fra-rate-helper-1 [rate months-to-start months-to-end fixing-days convention end-of-month day-counter])
+;;(defrecord fra-rate-helper-2 [rate months-to-start ibor-index])
 (defrecord swap-rate-helper-1 [rate tenor fixed-frequency fixed-convention 
                                fixed-day-count ibor-index spread fwd-start 
                                discounting-curve settlement-days pillar custom-pillar-date])
@@ -55,7 +42,17 @@ public DepositRateHelper(double rate, Period tenor, long fixingDays, Calendar ca
 (defrecord swap-rate-helper-6 [rate tenor fixed-frequency fixed-convention 
                                fixed-day-count ibor-index spread])
 (defrecord swap-rate-helper-7 [rate tenor fixed-frequency fixed-convention 
-                               fixed-day-count ibor-index])
+                               fixed-day-count ibor-index]
+  RateHelper
+  (to-java [this]
+    (new SwapRateHelper
+         rate
+         (to-java period)
+         (new TARGET)
+         (fixed-frequency keywords-to-frequency)         
+         (fixed-convention keywords-to-businessdayconvention)
+         (to-java fixed-day-count)
+         (to-java index))))
 (defrecord swap-rate-helper-8 [rate swap-index spread fwd-start discounting-curve pillar custom-pillar-date])
 (defrecord swap-rate-helper-9 [rate swap-index spread fwd-start discounting-curve pillar])
 (defrecord swap-rate-helper-10 [rate swap-index spread fwd-start discounting-curve])
