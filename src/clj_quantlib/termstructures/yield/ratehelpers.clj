@@ -47,12 +47,12 @@
   (to-java [this]
     (new SwapRateHelper
          rate
-         (to-java period)
+         (to-java tenor)
          (new TARGET)
          (fixed-frequency keywords-to-frequency)         
          (fixed-convention keywords-to-businessdayconvention)
          (to-java fixed-day-count)
-         (to-java index))))
+         (to-java ibor-index))))
 (defrecord swap-rate-helper-8 [rate swap-index spread fwd-start discounting-curve pillar custom-pillar-date])
 (defrecord swap-rate-helper-9 [rate swap-index spread fwd-start discounting-curve pillar])
 (defrecord swap-rate-helper-10 [rate swap-index spread fwd-start discounting-curve])

@@ -10,7 +10,7 @@
   (to-java [this]
     (new PiecewiseFlatForward
          (to-java settlement-date)
-         (doto (RateHelperVector.) (dotimes [instrument instruments] (.add (to-java instruments))))
+         (doto (RateHelperVector.) (dotimes [instrument instruments] (.add (to-java instrument))))
          (to-java day-counter))))
 
 (defn piecewise-flat-forward 

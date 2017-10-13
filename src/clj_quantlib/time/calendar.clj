@@ -1,7 +1,7 @@
 (ns clj-quantlib.time.calendar  
-  (:import (com.github.vonrosen.quantlib Month)
-           (com.github.vonrosen.quantlib Date)           
-           (com.github.vonrosen.quantlib TARGET)))
+  (:import (com.github.vonrosen.quantlib Month
+                                         Date
+                                         TARGET)))
 
 (def ^{:doc "Map of month keywords into native java Month objects."}
      keywords-to-months

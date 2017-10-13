@@ -1,7 +1,7 @@
 (ns clj-quantlib.time.period
-  (:import (com.github.vonrosen.quantlib TimeUnit)
-           (com.github.vonrosen.quantlib Frequency)
-           (com.github.vonrosen.quantlib Period)))
+  (:import (com.github.vonrosen.quantlib TimeUnit
+                                         Frequency
+                                         Period)))
 
 (def ^{:doc "Map of time unit keywords into native java TimeUnit objects."}
      keywords-to-time-units

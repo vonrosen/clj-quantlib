@@ -49,6 +49,7 @@ corresponding time period."}
   (to-java [this]
     (new-java-euribor period)))
 (defrecord euribor-2 [period term-structure]
+  Index
   (to-java [this]
     (new-java-euribor period term-structure)))
 
